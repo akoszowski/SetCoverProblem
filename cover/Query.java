@@ -3,9 +3,18 @@ package cover;
 import java.util.ArrayList;
 
 public class Query {
+    private static final Query INSTANCE = new Query();
+
+    private Query(){
+    }
+
+    public static Query getInstance() {
+        return INSTANCE;
+    }
+
     public void solve(ArrayList<Set> setsFamily, int a, int b) {
         if (b == 1) {
-            Precise precise = new Precise();
+            Precise precise = Precise.getInstance();
 
             //System.out.println("First option");
 
@@ -14,7 +23,7 @@ public class Query {
             //System.out.println("AAA");
         }
         else if (b == 2) {
-            Greedy greedy = new Greedy();
+            Greedy greedy = Greedy.getInstance();
 
             //System.out.println("Second option");
 
@@ -22,7 +31,7 @@ public class Query {
             greedy.printSolution();
         }
         else {
-            Naive naive = new Naive();
+            Naive naive = Naive.getInstance();
 
             //System.out.println("Third option");
 

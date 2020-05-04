@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Algorithm {
-    protected ArrayList<Integer> solution = new ArrayList<>();
+    protected static ArrayList<Integer> solution = new ArrayList<>();
 
     public abstract void findSolution(ArrayList<Set> setsFamily, int instanceBound);
 

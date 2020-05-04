@@ -5,6 +5,17 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Greedy extends Algorithm {
+    private static final Greedy INSTANCE = new Greedy();
+
+    private Greedy(){
+
+    }
+
+    public static Greedy getInstance() {
+        solution.clear();
+        return INSTANCE;
+    }
+
 
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {

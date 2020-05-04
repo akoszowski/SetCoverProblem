@@ -3,6 +3,17 @@ package cover;
 import java.util.ArrayList;
 
 public class Precise extends Algorithm {
+    private static final Precise INSTANCE = new Precise();
+
+    private Precise(){
+
+    }
+
+    public static Precise getInstance() {
+        solution.clear();
+        return INSTANCE;
+    }
+
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {
         if (!checkIfCovers(setsFamily, instanceBound)) {

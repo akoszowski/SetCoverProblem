@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Naive extends Algorithm {
+    private static final Naive INSTANCE = new Naive();
+
+    private Naive(){
+
+    }
+
+    public static Naive getInstance() {
+        solution.clear();
+        return INSTANCE;
+    }
 
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {

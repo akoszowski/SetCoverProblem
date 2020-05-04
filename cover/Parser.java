@@ -44,7 +44,7 @@ public class Parser {
             if (first < 0) {
                 //System.out.println("Put Query" + first + " " + second);
 
-                Query query = new Query();
+                Query query = Query.getInstance();
                 query.solve(setsFamily, first, second);
 
                 bufRemove(2);
