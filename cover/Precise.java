@@ -16,7 +16,8 @@ public class Precise extends Algorithm {
         ArrayList<Set> familySubset = new ArrayList<>();
         ArrayList<Integer> subsetIds = new ArrayList<>();
 
-        long curArr = 1, arrNum = (1 << setsNum), curVal;
+        long curArr = 1, arrNum = 1, curVal;
+        arrNum <<= setsNum;
         while (curArr < arrNum) {
             familySubset.clear();
             subsetIds.clear();
@@ -25,7 +26,7 @@ public class Precise extends Algorithm {
             for (int i = 0; curVal > 0; ++i) {
                 if (curVal % 2 == 1) {
                     familySubset.add(setsFamily.get(i));
-                    subsetIds.add(i);
+                    subsetIds.add(i+1);
                 }
 
                 curVal /= 2;
