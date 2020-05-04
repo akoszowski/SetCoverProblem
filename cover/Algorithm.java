@@ -37,10 +37,13 @@ public abstract class Algorithm {
     }
 
     public void printSolution() {
-        for (Integer x: solution) {
-            System.out.print(x + " ");
+        int sSize = solution.size();
+
+        for (int i = 0; i < sSize - 1; ++i) {
+            System.out.print(solution.get(i) + " ");
         }
 
+        System.out.print(solution.get(sSize - 1));
         System.out.print('\n');
     }
 }
