@@ -42,7 +42,6 @@ public abstract class Algorithm {
         for (int i = 0; i < sSize - 1; ++i) {
             System.out.print(solution.get(i) + " ");
         }
-
         System.out.print(solution.get(sSize - 1));
         System.out.print('\n');
     }

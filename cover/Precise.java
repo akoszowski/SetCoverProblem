@@ -11,12 +11,11 @@ public class Precise extends Algorithm {
         }
 
         int setsNum = setsFamily.size();
-        int minNeeded = instanceBound + 1;
+        int minNeeded = setsNum + 1;
         boolean[] covered = new boolean[instanceBound + 1];
-        ArrayList<Integer> optimalSolution = new ArrayList<>();
         ArrayList<Set> familySubset = new ArrayList<>();
 
-        int curArr = 1, arrNum = (1 << setsNum), curVal;
+        long curArr = 1, arrNum = (1 << setsNum), curVal;
         while (curArr < arrNum) {
             familySubset.clear();
 
@@ -29,14 +28,15 @@ public class Precise extends Algorithm {
                 curVal /= 2;
             }
 
-            if (familySubset.size() < minNeeded && checkIfCovers(familySubset, instanceBound)) {
+            if (isBetter(familySubset) && checkIfCovers(familySubset, instanceBound)) {
                 minNeeded = familySubset.size();
-                optimalSolution.clear();
+                System.err.print(minNeeded + "\n");
+                solution.clear();
 
                 curVal = curArr;
                 for (int i = 0; curVal > 0; ++i) {
                     if (curVal % 2 == 1) {
-                        optimalSolution.add(i + 1);
+                        solution.add(i + 1);
                     }
                     curVal /= 2;
                 }
@@ -44,8 +44,5 @@ public class Precise extends Algorithm {
 
             curArr++;
         }
-
-        solution.addAll(optimalSolution);
-
     }
 }
