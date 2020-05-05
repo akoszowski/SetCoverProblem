@@ -55,7 +55,6 @@ public class Precise extends Algorithm {
 
             if (isBetter(subsetIds, minNeeded) && checkIfCovers(familySubset, instanceBound)) {
                 minNeeded = familySubset.size();
-                System.err.print(minNeeded + "\n");
                 solution.clear();
 
                 solution.addAll(subsetIds);
