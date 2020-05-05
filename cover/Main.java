@@ -1,21 +1,21 @@
+// PROJECT: Set cover problem
+// Author: Antoni Koszowski
+
 package cover;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int curVal;
+        int toParse;
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
 
+        // reading and redirecting input
         while (sc.hasNext()) {
-            curVal = sc.nextInt();
-            parser.parse(curVal);
+            toParse = sc.nextInt();
 
-            /*if (curVal == 0) {
-                parser.print();
-            }*/
+            parser.parse(toParse);
         }
-
     }
 }

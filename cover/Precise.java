@@ -2,7 +2,20 @@ package cover;
 
 import java.util.ArrayList;
 
+// class representing the precise algorithm
+// finding the best optimal solution (in terms of number of sets and lexicographic order)
 public class Precise extends Algorithm {
+    private static final Precise INSTANCE = new Precise();
+
+    private Precise(){
+
+    }
+
+    public static Precise getInstance() {
+        solution.clear();
+        return INSTANCE;
+    }
+
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {
         if (!checkIfCovers(setsFamily, instanceBound)) {
@@ -11,41 +24,61 @@ public class Precise extends Algorithm {
         }
 
         int setsNum = setsFamily.size();
-        int minNeeded = instanceBound + 1;
+        int minNeeded = setsNum + 1;
         boolean[] covered = new boolean[instanceBound + 1];
-        ArrayList<Integer> optimalSolution = new ArrayList<>();
         ArrayList<Set> familySubset = new ArrayList<>();
+        ArrayList<Integer> subsetIds = new ArrayList<>();
 
-        int curArr = 1, arrNum = (1 << setsNum), curVal;
-        while (curArr < arrNum) {
+        int countSets;
+        long curBit, arrNum = 1;
+        arrNum <<= setsNum;
+
+        for (long i = 1; i <= arrNum; ++i) {
             familySubset.clear();
+            subsetIds.clear();
+            curBit = 1;
+            countSets = 0;
 
-            curVal = curArr;
-            for (int i = 0; curVal > 0; ++i) {
-                if (curVal % 2 == 1) {
-                    familySubset.add(setsFamily.get(i));
+            for (int j = 0; j < setsNum; ++j) {
+                if ((i & curBit) > 0) {
+                    familySubset.add(setsFamily.get(j));
+                    subsetIds.add(j + 1);
+                    countSets++;
                 }
 
-                curVal /= 2;
+                if (countSets > minNeeded) {
+                    break;
+                }
+
+                curBit <<= 1;
             }
 
-            if (familySubset.size() < minNeeded && checkIfCovers(familySubset, instanceBound)) {
+            if (isBetter(subsetIds, minNeeded) && checkIfCovers(familySubset, instanceBound)) {
                 minNeeded = familySubset.size();
-                optimalSolution.clear();
+                solution.clear();
 
-                curVal = curArr;
-                for (int i = 0; curVal > 0; ++i) {
-                    if (curVal % 2 == 1) {
-                        optimalSolution.add(i + 1);
-                    }
-                    curVal /= 2;
+                solution.addAll(subsetIds);
+            }
+        }
+    }
+
+    // checks whether current subset of family of sets is the optimal solution
+    // firstly when it comes to number of sets, secondary in lexicographic order
+    private boolean isBetter(ArrayList<Integer> subsetIds, int minNeeded) {
+        if (subsetIds.size() < minNeeded) {
+            return true;
+        }
+        else if (subsetIds.size() == minNeeded) {
+            for (int i = 0; i < subsetIds.size(); ++i) {
+                if (subsetIds.get(i) > solution.get(i)) {
+                    return false;
+                }
+                else if (subsetIds.get(i) < solution.get(i)) {
+                    return true;
                 }
             }
-
-            curArr++;
         }
 
-        solution.addAll(optimalSolution);
-
+        return false;
     }
 }

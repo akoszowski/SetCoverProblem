@@ -2,29 +2,36 @@ package cover;
 
 import java.util.ArrayList;
 
+// class realizing the query
 public class Query {
-    public void solve(ArrayList<Set> setsFamily, int a, int b) {
-        if (b == 1) {
-            Precise precise = new Precise();
+    private static final Query INSTANCE = new Query();
 
-            //System.out.println("First option");
+    private Query(){
+    }
+
+    public static Query getInstance() {
+        return INSTANCE;
+    }
+
+    public void solve(ArrayList<Set> setsFamily, int a, int b) {
+        // choosing algorithm finding the solution
+        // precise algorithm
+        if (b == 1) {
+            Precise precise = Precise.getInstance();
 
             precise.findSolution(setsFamily, -a);
             precise.printSolution();
-            //System.out.println("AAA");
         }
+        // greedy algorithm
         else if (b == 2) {
-            Greedy greedy = new Greedy();
-
-            //System.out.println("Second option");
+            Greedy greedy = Greedy.getInstance();
 
             greedy.findSolution(setsFamily, -a);
             greedy.printSolution();
         }
+        // naive algorithm
         else {
-            Naive naive = new Naive();
-
-            //System.out.println("Third option");
+            Naive naive = Naive.getInstance();
 
             naive.findSolution(setsFamily, -a);
             naive.printSolution();
