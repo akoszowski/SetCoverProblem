@@ -1,13 +1,13 @@
 package cover;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
+// class representing set
+// consisting of single elements, finite and infinite sequences
 public class Set {
     private ArrayList<Component> components = new ArrayList<>();
 
-
-    // dodawanie nowych elementów do zbioru
     public void addComponent(int a) {
         Element e = new Element(a);
 
@@ -26,16 +26,17 @@ public class Set {
         components.add(finSq);
     }
 
-    public boolean isEmpty() {
-        return components.isEmpty();
-    }
-
+    // returns a list of all numbers from the set that are less or equal x
     public ArrayList<Integer> numbersInRange(int x) {
+        boolean[] alreadyAppeared = new boolean[x + 1];
         ArrayList<Integer> inRange = new ArrayList<>();
+
+        Arrays.fill(alreadyAppeared, false);
 
         for(Component c: components) {
             for (Integer n: c.numbersInRange(x)) {
-                if (!inRange.contains(n)) {
+                if (!alreadyAppeared[n]) {
+                    alreadyAppeared[n] = true;
                     inRange.add(n);
                 }
             }
@@ -43,6 +44,4 @@ public class Set {
 
         return inRange;
     }
-
-
 }

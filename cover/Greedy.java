@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+// class representing the greedy algorithm
+// adding to the solution consecutive sets
+// the biggest number of not yet covered numbers
 public class Greedy extends Algorithm {
     private static final Greedy INSTANCE = new Greedy();
 
@@ -15,7 +18,6 @@ public class Greedy extends Algorithm {
         solution.clear();
         return INSTANCE;
     }
-
 
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {
@@ -32,18 +34,19 @@ public class Greedy extends Algorithm {
         Arrays.fill(covered,false);
         Arrays.fill(wasAdded, false);
 
-        // o ile nie pokryliśmy całego zbioru dobieramy kolejny maksymalny
         int max, maxId, curVal;
         Set curSet;
 
         while (toBeCovered > 0) {
-            // wybieramy maksymalny
             max = 0;
             maxId = 0;
+
             for (int i = 0; i < setsNum; ++i) {
                 curSet = setsFamily.get(i);
+
                 if (!wasAdded[i]) {
                     curVal = commonNums(covered, curSet);
+
                     if (curVal > max) {
                         max = curVal;
                         maxId = i;
@@ -52,6 +55,7 @@ public class Greedy extends Algorithm {
             }
 
             curSet = setsFamily.get(maxId);
+
             for (Integer n: curSet.numbersInRange(instanceBound)) {
                 covered[n] = true;
             }
@@ -66,6 +70,7 @@ public class Greedy extends Algorithm {
 
     }
 
+    // returns number of elements in given set not yet covered
     private int commonNums(boolean[] covered, Set s) {
         int counter = 0;
         ArrayList<Integer> curNums = s.numbersInRange(covered.length - 1);

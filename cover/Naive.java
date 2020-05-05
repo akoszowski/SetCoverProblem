@@ -3,6 +3,8 @@ package cover;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// class representing the naive algorithm
+// adding set to the solution if one contains not yet covered numbers
 public class Naive extends Algorithm {
     private static final Naive INSTANCE = new Naive();
 
@@ -15,6 +17,7 @@ public class Naive extends Algorithm {
         return INSTANCE;
     }
 
+
     @Override
     public void findSolution(ArrayList<Set> setsFamily, int instanceBound) {
         if (!checkIfCovers(setsFamily, instanceBound)) {
@@ -23,24 +26,24 @@ public class Naive extends Algorithm {
         }
 
         int setId = 1;
-        boolean hasNotCovered;
+        boolean toBeAdded;
         boolean[] covered = new boolean[instanceBound + 1];
         ArrayList<Integer> curNums;
 
         Arrays.fill(covered, false);
 
         for (Set s: setsFamily) {
-            hasNotCovered = false;
+            toBeAdded= false;
             curNums = s.numbersInRange(instanceBound);
 
             for (Integer n: curNums) {
                 if (!covered[n]) {
-                    hasNotCovered = true;
+                    toBeAdded = true;
                     covered[n] = true;
                 }
             }
 
-            if (hasNotCovered) {
+            if (toBeAdded) {
                 solution.add(setId);
             }
 

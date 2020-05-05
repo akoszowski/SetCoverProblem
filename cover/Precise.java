@@ -2,6 +2,8 @@ package cover;
 
 import java.util.ArrayList;
 
+// class representing the precise algorithm
+// finding the best optimal solution (in terms of number of sets and lexicographic order)
 public class Precise extends Algorithm {
     private static final Precise INSTANCE = new Precise();
 
@@ -27,20 +29,28 @@ public class Precise extends Algorithm {
         ArrayList<Set> familySubset = new ArrayList<>();
         ArrayList<Integer> subsetIds = new ArrayList<>();
 
-        long curArr = 1, arrNum = 1, curVal;
+        int countSets;
+        long curBit, arrNum = 1;
         arrNum <<= setsNum;
-        while (curArr < arrNum) {
+
+        for (long i = 1; i <= arrNum; ++i) {
             familySubset.clear();
             subsetIds.clear();
+            curBit = 1;
+            countSets = 0;
 
-            curVal = curArr;
-            for (int i = 0; curVal > 0; ++i) {
-                if (curVal % 2 == 1) {
-                    familySubset.add(setsFamily.get(i));
-                    subsetIds.add(i+1);
+            for (int j = 0; j < setsNum; ++j) {
+                if ((i & curBit) > 0) {
+                    familySubset.add(setsFamily.get(j));
+                    subsetIds.add(j + 1);
+                    countSets++;
                 }
 
-                curVal /= 2;
+                if (countSets > minNeeded) {
+                    break;
+                }
+
+                curBit <<= 1;
             }
 
             if (isBetter(subsetIds, minNeeded) && checkIfCovers(familySubset, instanceBound)) {
@@ -50,11 +60,11 @@ public class Precise extends Algorithm {
 
                 solution.addAll(subsetIds);
             }
-
-            curArr++;
         }
     }
 
+    // checks whether current subset of family of sets is the optimal solution
+    // firstly when it comes to number of sets, secondary in lexicographic order
     private boolean isBetter(ArrayList<Integer> subsetIds, int minNeeded) {
         if (subsetIds.size() < minNeeded) {
             return true;

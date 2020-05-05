@@ -2,6 +2,7 @@ package cover;
 
 import java.util.ArrayList;
 
+// class realizing the query
 public class Query {
     private static final Query INSTANCE = new Query();
 
@@ -13,27 +14,24 @@ public class Query {
     }
 
     public void solve(ArrayList<Set> setsFamily, int a, int b) {
+        // choosing algorithm finding the solution
+        // precise algorithm
         if (b == 1) {
             Precise precise = Precise.getInstance();
 
-            //System.out.println("First option");
-
             precise.findSolution(setsFamily, -a);
             precise.printSolution();
-            //System.out.println("AAA");
         }
+        // greedy algorithm
         else if (b == 2) {
             Greedy greedy = Greedy.getInstance();
-
-            //System.out.println("Second option");
 
             greedy.findSolution(setsFamily, -a);
             greedy.printSolution();
         }
+        // naive algorithm
         else {
             Naive naive = Naive.getInstance();
-
-            //System.out.println("Third option");
 
             naive.findSolution(setsFamily, -a);
             naive.printSolution();

@@ -3,12 +3,13 @@ package cover;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// abstract class representing general structure of algorithms
 public abstract class Algorithm {
     protected static ArrayList<Integer> solution = new ArrayList<>();
 
     public abstract void findSolution(ArrayList<Set> setsFamily, int instanceBound);
 
-    // sprawdzamy czy suma rodziny zbiorów jest w ogóle nadzbiorem !
+    // checks if union of sets from the family is superset of {1, ..., instanceBound}
     protected boolean checkIfCovers(ArrayList<Set> setsFamily, int instanceBound) {
         if (setsFamily.isEmpty()) {
             return false;
